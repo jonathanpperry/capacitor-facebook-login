@@ -4,14 +4,17 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-row class="ion-text-center">
+<ion-content class="ion-padding">
+  <div style="text-align: center">
     <h3>Your Profile Information</h3>
-  </ion-row>
+  </div>
   <div *ngIf="user; else other_content">
-    <ion-row><p>Name: {{user?.name}}</p></ion-row>
-    <ion-row><p>Email: {{user?.email}}</p></ion-row>
-    <ion-row><p>Birthday: {{user?.birthday}}</p></ion-row>
+    <ion-row
+      ><ion-col size="6"> <img [src]="user.picture.data.url" /> </ion-col
+    ></ion-row>
+    <ion-row><p>Name: {{user.name}}</p></ion-row>
+    <ion-row><p>Email: {{user.email}}</p></ion-row>
+    <ion-row><p>Birthday: {{user.birthday}}</p></ion-row>
   </div>
   <ng-template #other_content>
     <p>No user information</p>
