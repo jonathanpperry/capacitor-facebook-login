@@ -1,5 +1,5 @@
 {
-  "name": "devdacticFbLogin",
+  "name": "capacitorFbLogin",
   "integrations": {
     "capacitor": {}
   },

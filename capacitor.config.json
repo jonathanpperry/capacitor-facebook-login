@@ -1,6 +1,6 @@
 {
   "appId": "com.jonnyramen.capfacebooklogin",
-  "appName": "devdacticFbLogin",
+  "appName": "capacitorFbLogin",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
