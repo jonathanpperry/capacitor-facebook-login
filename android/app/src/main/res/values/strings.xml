@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">devdacticFbLogin</string>
+    <string name="title_activity_main">devdacticFbLogin</string>
+    <string name="package_name">com.jonnyramen.capfacebooklogin</string>
+    <string name="custom_url_scheme">com.jonnyramen.capfacebooklogin</string>
+    <string name="facebook_app_id">657662868261302</string>
+    <string name="fb_login_protocol_scheme">657662868261302</string>
+</resources>
