@@ -45,7 +45,7 @@ export class LoginPage {
     });
 
     if (result.accessToken && result.accessToken.userId) {
-      this.appComponent.token = result.accessToken;
+      this.token = result.accessToken;
       this.loadUserData();
     } else if (result.accessToken && !result.accessToken.userId) {
       // Web only gets the token but not the user ID
@@ -61,7 +61,7 @@ export class LoginPage {
     const result = await this.fbLogin.getCurrentAccessToken();
 
     if (result.accessToken) {
-      this.appComponent.token = result.accessToken;
+      this.token = result.accessToken;
       this.loadUserData();
     } else {
       // Not logged in.
@@ -69,10 +69,10 @@ export class LoginPage {
   }
 
   async loadUserData() {
-    const url = `https://graph.facebook.com/${this.appComponent.token.userId}?fields=id,name,picture.width(720),birthday,email&access_token=${this.appComponent.token.token}`;
+    const url = `https://graph.facebook.com/${this.token.userId}?fields=id,name,picture.width(720),birthday,email&access_token=${this.token.token}`;
     this.http.get(url).subscribe((res) => {
-      console.log("User: ", res);
-      this.user = res;
+      this.appComponent.user = res;
+      this.token
       // Will only reach here if login succeeded
       this.router.navigate(["/tabs/tab1"], {
         queryParams: { userData: JSON.stringify(this.user) },

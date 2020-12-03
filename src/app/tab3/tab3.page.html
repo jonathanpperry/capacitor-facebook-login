@@ -1,17 +1,19 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
+    <ion-title>Profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+<ion-content>
+  <ion-row class="ion-text-center">
+    <h3>Your Profile Information</h3>
+  </ion-row>
+  <div *ngIf="user; else other_content">
+    <ion-row><p>Name: {{user?.name}}</p></ion-row>
+    <ion-row><p>Email: {{user?.email}}</p></ion-row>
+    <ion-row><p>Birthday: {{user?.birthday}}</p></ion-row>
+  </div>
+  <ng-template #other_content>
+    <p>No user information</p>
+  </ng-template>
 </ion-content>

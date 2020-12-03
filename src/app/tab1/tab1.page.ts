@@ -13,7 +13,7 @@ import { AppComponent } from "../app.component";
   templateUrl: "tab1.page.html",
   styleUrls: ["tab1.page.scss"],
 })
-export class Tab1Page implements OnInit {
+export class Tab1Page {
   fbLogin: FacebookLoginPlugin;
 
   user: null;
