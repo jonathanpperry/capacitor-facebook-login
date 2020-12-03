@@ -1,11 +1,13 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import {
   FacebookLogin,
   FacebookLoginPlugin,
 } from "@capacitor-community/facebook-login";
 import { Plugins, registerWebPlugin } from "@capacitor/core";
 import { isPlatform } from "@ionic/angular";
+import { AppComponent } from "src/app/app.component";
 
 registerWebPlugin(FacebookLogin);
 
@@ -14,15 +16,17 @@ registerWebPlugin(FacebookLogin);
   templateUrl: "./login.page.html",
   styleUrls: ["./login.page.scss"],
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
   fbLogin: FacebookLoginPlugin;
   user = null;
   token = null;
-  constructor(private http: HttpClient) {
+  constructor(
+    private appComponent: AppComponent,
+    private http: HttpClient,
+    private router: Router
+  ) {
     this.setupFbLogin();
   }
-
-  ngOnInit() {}
 
   async setupFbLogin() {
     if (isPlatform("desktop")) {
@@ -41,7 +45,7 @@ export class LoginPage implements OnInit {
     });
 
     if (result.accessToken && result.accessToken.userId) {
-      this.token = result.accessToken;
+      this.appComponent.token = result.accessToken;
       this.loadUserData();
     } else if (result.accessToken && !result.accessToken.userId) {
       // Web only gets the token but not the user ID
@@ -49,6 +53,7 @@ export class LoginPage implements OnInit {
       this.getCurrentToken();
     } else {
       // Login failed
+      return;
     }
   }
 
@@ -56,7 +61,7 @@ export class LoginPage implements OnInit {
     const result = await this.fbLogin.getCurrentAccessToken();
 
     if (result.accessToken) {
-      this.token = result.accessToken;
+      this.appComponent.token = result.accessToken;
       this.loadUserData();
     } else {
       // Not logged in.
@@ -64,16 +69,14 @@ export class LoginPage implements OnInit {
   }
 
   async loadUserData() {
-    const url = `https://graph.facebook.com/${this.token.userId}?fields=id,name,picture.width(720),birthday,email&access_token=${this.token.token}`;
+    const url = `https://graph.facebook.com/${this.appComponent.token.userId}?fields=id,name,picture.width(720),birthday,email&access_token=${this.appComponent.token.token}`;
     this.http.get(url).subscribe((res) => {
       console.log("User: ", res);
       this.user = res;
+      // Will only reach here if login succeeded
+      this.router.navigate(["/tabs/tab1"], {
+        queryParams: { userData: JSON.stringify(this.user) },
+      });
     });
-  }
-
-  async logout() {
-    await this.fbLogin.logout();
-    this.user = null;
-    this.token = null;
   }
 }
