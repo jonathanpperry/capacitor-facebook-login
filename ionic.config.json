@@ -1,0 +1,7 @@
+{
+  "name": "devdacticFbLogin",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
